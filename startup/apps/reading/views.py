@@ -41,7 +41,7 @@ class ReadingRetrieveAPIView(generics.RetrieveAPIView):
         return Response(serializer.data)
 
 
-class LikeCreateAPIView(generics.GenericAPIView):
+class LikeCreateAPIView(views.APIView):
     # permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
