@@ -52,7 +52,10 @@ class LikeCreateAPIView(views.APIView):
             qs.delete()
             return Response({'message': 'Your like deleted'}, status=status.HTTP_204_NO_CONTENT)
         else:
-            Like.objects.create(reading_id=read_id, user_id=user_id)
+            try:
+                Like.objects.create(reading_id=read_id, user_id=user_id)
+            except:
+                return Response({'error': 'Reading does not exist'}, status=status.HTTP_400_BAD_REQUEST)
             return Response({'message': 'Your like added'}, status=status.HTTP_201_CREATED)
 
 
