@@ -17,12 +17,14 @@ class VariantInline(admin.StackedInline):
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [VariantInline]
     list_display = ['id', 'reading', 'question', 'answer']
+    list_filter = ['reading']
 
 
 @admin.register(Reading)
 class ReadingAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'type', 'views', 'likes']
     fields = ['title', 'text', 'type', 'background']
+    list_filter = ['type']
 
     def likes(self, obj):
         return Like.objects.filter(reading=obj).all().count()
@@ -31,3 +33,4 @@ class ReadingAdmin(admin.ModelAdmin):
 @admin.register(Like)
 class LikeAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'reading']
+    list_filter = ['user', 'reading']

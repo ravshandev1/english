@@ -60,10 +60,11 @@ class LikeCreateAPIView(views.APIView):
 
 
 class QuestionAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
-        user = User.objects.filter(username=self.request.user.username).first()
+        # user = User.objects.filter(username=request.user.username).first()
+        user = User.objects.filter(username=request.data['user_id']).first()
         _id = request.data['reading_id']
         try:
             instance = Reading.objects.get(id=_id)

@@ -17,6 +17,7 @@ class VariantInline(admin.StackedInline):
 class ListeningAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'type', 'views', 'likes']
     fields = ['title', 'audio', 'type', 'background']
+    list_filter = ['type']
 
     def likes(self, obj):
         return Like.objects.filter(listening=obj).all().count()
@@ -26,8 +27,10 @@ class ListeningAdmin(admin.ModelAdmin):
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [VariantInline]
     list_display = ['id', 'listening', 'question', 'answer']
+    list_filter = ['listening']
 
 
 @admin.register(Like)
 class LikeAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'listening']
+    list_filter = ['user', 'listening']
