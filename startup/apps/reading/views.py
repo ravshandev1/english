@@ -4,9 +4,12 @@ from rest_framework.response import Response
 from .models import Reading, Like, Variant, Question
 from .serializers import ReadingListSerializer
 from user.models import User
+from paginations import Pagination
 
 
 class ReadingListAPIView(generics.ListAPIView):
+    pagination_class = Pagination
+
     def get_queryset(self):
         return Reading.objects.all()
 
