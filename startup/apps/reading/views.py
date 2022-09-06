@@ -67,7 +67,7 @@ class QuestionAPIView(views.APIView):
 
     def post(self, request):
         # user = User.objects.filter(username=request.user.username).first()
-        user = User.objects.filter(username=request.data['user_id']).first()
+        user = User.objects.filter(username=request.data['username']).first()
         _id = request.data['reading_id']
         try:
             instance = Reading.objects.get(id=_id)

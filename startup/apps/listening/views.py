@@ -63,7 +63,8 @@ class QuestionAPIView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
-        user = User.objects.filter(username=request.user.username).first()
+        user = User.objects.filter(username=request.data['username']).first()
+        # user = User.objects.filter(username=request.user.username).first()
         _id = request.data['listening_id']
         try:
             instance = Listening.objects.get(id=_id)
