@@ -49,7 +49,11 @@ class RetrieveSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'email', 'education', 'score']
 
-    score = serializers.DecimalField(read_only=True, max_digits=4, decimal_places=1)
+    score = serializers.SerializerMethodField(read_only=True)
+
+    def get_score(self, obj):
+        score = User.objects.filter(username=obj.username).first().score
+        return f'{score} %'
 
 
 """This serializers is for list Users!"""
@@ -62,11 +66,16 @@ class PaymentListSerializer(serializers.ModelSerializer):
 
 
 class UserListSerializer(serializers.ModelSerializer):
-    payment_set = PaymentListSerializer(many=True, read_only=True)
-
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'education', 'score', 'payment_set']
+
+    payment_set = PaymentListSerializer(many=True, read_only=True)
+    score = serializers.SerializerMethodField(read_only=True)
+
+    def get_score(self, obj):
+        score = User.objects.filter(username=obj.username).first().score
+        return f'{score} %'
 
 
 class ForgetPasswordSerializer(serializers.ModelSerializer):

@@ -86,4 +86,5 @@ class QuestionAPIView(views.APIView):
         user.score = ((count * 100 / ques_count) + float(user.score)) / 2
         user.save()
         return Response(
-            {'success': True, 'correct answers': count, 'percent': count * 100 / ques_count, 'your score': user.score})
+            {'success': True, 'correct answers': count, 'percent': count * 100 / ques_count,
+             'your score': f'{user.score} %'})
